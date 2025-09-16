@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Surat untuk Apipaah</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Special+Elite&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: #f7f1e3;
+      font-family: 'Special Elite', cursive;
+      overflow: hidden;
+    }
+
+    /* Halaman lock screen */
+    #lockScreen {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #d1ccc0;
+    }
+
+    #lockScreen h2 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+
+    #codeInput {
+      font-size: 1.5em;
+      padding: 5px 10px;
+      border: 2px solid #333;
+      border-radius: 5px;
+      text-align: center;
+      width: 120px;
+    }
+
+    #unlockBtn {
+      margin-top: 15px;
+      padding: 8px 16px;
+      font-size: 1.2em;
+      cursor: pointer;
+      border-radius: 5px;
+      border: none;
+      background: #706fd3;
+      color: white;
+      transition: 0.3s;
+    }
+
+    #unlockBtn:hover {
+      background: #474787;
+    }
+
+    /* Halaman surat */
+    #letterContainer {
+      display: none;
+      position: relative;
+      height: 100vh;
+      width: 100vw;
+      background: #f7f1e3;
+      overflow: hidden;
+    }
+
+    .paper {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 70%;
+      height: 70%;
+      background: #fcf5e5;
+      border: 2px solid #d2b48c;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      padding: 40px;
+      font-size: 1.2em;
+      line-height: 1.6em;
+      display: none;
+      border-radius: 8px;
+    }
+
+    .paper.active {
+      display: block;
+      animation: fadeIn 1s;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    .navigation {
+      position: absolute;
+      bottom: 10px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .navBtn {
+      font-size: 2em;
+      margin: 0 20px;
+      cursor: pointer;
+      color: #706fd3;
+    }
+    
+    /* Elemen lucu bergerak */
+    .floating {
+      position: absolute;
+      animation: floatUp 10s linear infinite;
+      font-size: 1.5em;
+      opacity: 0.8;
+    }
+
+    @keyframes floatUp {
+      from { transform: translateY(100vh); opacity: 1; }
+      to { transform: translateY(-10vh); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Lock Screen -->
+  <div id="lockScreen">
+    <h2>🔒 Masukkan Kode Rahasia</h2>
+    <input type="password" id="codeInput" placeholder="######" maxlength="6">
+    <button id="unlockBtn">Buka</button>
+  </div>
+
+  <!-- Letter Container -->
+  <div id="letterContainer">
+    <!-- Halaman 1 -->
+    <div class="paper active" id="page1">
+      <p>
+      Selamat ulang tahun yang ke-17, Apipaah! 🎉<br><br>
+      Aku bersyukur banget punya sahabat sepertimu, yang selalu ada di setiap langkahku — entah itu di saat susah atau senang. Kamu nggak pernah bosan dengerin ceritaku, ngasih masukan yang bikin aku tenang, dan nemenin aku tanpa lelah. Semoga di umur baru ini, semua doa dan harapanmu bisa tercapai. Semoga kamu selalu sehat, bahagia, dan dikelilingi orang-orang yang tulus menyayangimu, sama seperti aku yang beruntung punya kamu sebagai sahabat. 💙
+      </p>
+      <div class="navigation">
+        <span class="navBtn" id="nextBtn">➡️</span>
+      </div>
+    </div>
+
+    <!-- Halaman 2 -->
+    <div class="paper" id="page2">
+      <p>
+      Apipaah, kamu itu sosok yang kuat, sabar, dan nggak pernah berhenti berusaha. Aku percaya banget sama kemampuanmu, apalagi menghadapi TKA dan ujian masuk universitas nanti. Jangan pernah ragu sama dirimu sendiri, karena aku tahu kamu punya potensi besar. Kamu pintar, rajin, dan selalu mau belajar — itu udah jadi bekal terbaikmu.<br><br>
+      Kalau capek, istirahat sebentar boleh, tapi jangan berhenti. Ingat, jalanmu masih panjang dan aku yakin kamu bisa tembus universitas impianmu. Aku selalu dukung kamu, Pi. Kamu hebat dan aku bangga sama kamu! 🚀💪
+      </p>
+      <div class="navigation">
+        <span class="navBtn" id="prevBtn">⬅️</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const unlockBtn = document.getElementById('unlockBtn');
+    const codeInput = document.getElementById('codeInput');
+    const lockScreen = document.getElementById('lockScreen');
+    const letterContainer = document.getElementById('letterContainer');
+
+    unlockBtn.addEventListener('click', () => {
+      if(codeInput.value === "311008"){
+        lockScreen.style.display = "none";
+        letterContainer.style.display = "block";
+        spawnFloatingSymbols();
+      } else {
+        alert("Kode salah, coba lagi 😉");
+      }
+    });
+
+    // Navigasi
+    const page1 = document.getElementById('page1');
+    const page2 = document.getElementById('page2');
+    const nextBtn = document.getElementById('nextBtn');
+    const prevBtn = document.getElementById('prevBtn');
+
+    nextBtn.addEventListener('click', () => {
+      page1.classList.remove('active');
+      page2.classList.add('active');
+    });
+
+    prevBtn.addEventListener('click', () => {
+      page2.classList.remove('active');
+      page1.classList.add('active');
+    });
+
+    // Buat elemen lucu bergerak (hati & bintang)
+    function spawnFloatingSymbols(){
+      const symbols = ["💙","✨","🌸","💌","🎶"];
+      setInterval(()=>{
+        const el = document.createElement("div");
+        el.className="floating";
+        el.innerText = symbols[Math.floor(Math.random()*symbols.length)];
+        el.style.left = Math.random()*100+"vw";
+        el.style.animationDuration = (5+Math.random()*5)+"s";
+        document.body.appendChild(el);
+        setTimeout(()=>{el.remove();},10000);
+      },1500);
+    }
+  </script>
+</body>
+  </html>
